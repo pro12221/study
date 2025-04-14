@@ -1,0 +1,41 @@
+ceph创建用户
+ceph auth get-or-create wangshenao mon 'allow rwx' osd 'allow rwx pool=cinder-pool' -o /etc/ceph/ceph.client.wangshenao.keyring
+
+将文件拷贝至控制节点和计算节点
+scp /etc/ceph/ceph.conf /etc/ceph/ceph.client.wangshenao.keyring 172.18.0.254:/etc/ceph/
+
+openstack上验证
+rbd -p cinder-pool ls --id wangshenao
+
+创建 secret 及 key
+ceph --id wangshenao auth get-key client.wangshenao > wangshenaokey
+
+cat > secret.xml <<EOF
+<secret ephemeral='no' private='no'>
+  <uuid>308ebadd-7f35-41ca-bdcf-950b7c5d5f9e</uuid>
+  <usage type='ceph'>
+    <name>client.cloudcs secret</name>
+  </usage>
+</secret>
+EOF
+
+为 secret 设定 key
+virsh secret-set-value --secret 308ebadd-7f35-41ca-bdcf-950b7c5d5f9e --base64 $(cat wangshenaokey)
+
+chown cinder.cinder /etc/ceph/ceph.client.wangshenao.keyring
+
+修改 cinder 配置文件
+[ceph]
+volume_driver = cinder.volume.drivers.rbd.RBDDriver
+rbd_pool = cinder-pool
+rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_flatten_volume_from_snapshot = false
+rbd_max_clone_depth = 5
+rbd_store_chunk_size = 4
+rados_connect_timeout = -1
+glance_api_version = 2
+rbd_user = zhangsan
+rbd_secret_uuid = bf168fa8-8d5b-4991-ba4c-12ae622a98b1
+volume_backend_name = ceph
+
+enabled_backends = lvm,ceph #写到配置文件的DEFAULT中
