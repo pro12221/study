@@ -1,1 +1,1 @@
-一些简单的shell编写的小工具，包含kubeadm一键部署脚本，mysql安装脚本，ceph查看osd属于哪个磁盘等
+记录
