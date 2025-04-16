@@ -20,7 +20,7 @@ fi
 echo "配置 CentOS 8 Vault 仓库..."
 
 # 备份原有的 CentOS-Base.repo 文件
-rm-rf /etc/yum.repos.d/*
+rm -rf /etc/yum.repos.d/*
 
 # 下载并配置 CentOS 8 Vault 仓库
 curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
