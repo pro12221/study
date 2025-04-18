@@ -1,4 +1,5 @@
 # openstack对接ceph
+官方文档https://docs.ceph.com/en/latest/rbd/rbd-openstack/#configure-openstack-to-use-ceph
 
 ## ceph操作
 
