@@ -1,12 +1,13 @@
 # 分支冲突
 ## 切换分支
 
+```
 git status --查看当前分支
 git branch -a ---查看所有分支
 git checkout -b test --创建并进入分支
 git checkout  test --切换分支
 git branch test2  --创建分支
-
+```
 
 ## 合并分支
 
@@ -27,6 +28,7 @@ git add .
 git commit -m "222"
 
 #### test2修改test文件后提交
+```
 git checkout test2
 
 vim test.goi 
@@ -34,8 +36,10 @@ vim test.goi
 git add .
 
 git commit -m "222"
+```
 
 #### 合并
+```
 git checkout master 
 
 git merge test2
@@ -57,7 +61,7 @@ sdasda
 
  git commit -m "000"
 
-
+```
 
 # 删除分支
 git branch -d test test2
