@@ -21,22 +21,26 @@ git merge test2
 
 #### 主分支修改test文件后提交
 vim test.goi 
+
 git add .
+
 git commit -m "222"
 
 #### test2修改test文件后提交
 git checkout test2
+
 vim test.goi 
+
 git add .
+
 git commit -m "222"
 
 #### 合并
 git checkout master 
+
 git merge test2
-Auto-merging test.goi
-CONFLICT (content): Merge conflict in test.goi
-Automatic merge failed; fix conflicts and then commit the result.
-root@xiangkefu:~/git# cat test.goi 
+
+cat test.goi 
 sdasda
 21312
 
@@ -45,9 +49,12 @@ sdasda
 ?=======
 1231
 >>>>>>> test2
+
 此时需要手动解决冲突
  vim test.goi 
+
  git add .
+ 
  git commit -m "000"
 
 
