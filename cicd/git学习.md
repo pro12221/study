@@ -1,3 +1,4 @@
+# 分支冲突
 ## 切换分支
 
 git status --查看当前分支
@@ -50,5 +51,13 @@ sdasda
  git commit -m "000"
 
 
-## 删除分支
+
+# 删除分支
 git branch -d test test2
+
+
+# Git身份设置
+(全局)
+git config --global user.name "pro"
+git config --global user.email "w1914563332@gmail.com"
+
