@@ -54,7 +54,7 @@ sdasda
  vim test.goi 
 
  git add .
- 
+
  git commit -m "000"
 
 
@@ -68,3 +68,19 @@ git branch -d test test2
 git config --global user.name "pro"
 git config --global user.email "w1914563332@gmail.com"
 
+
+# 推送到远程仓库
+## 1. 关联远程仓库（只需执行一次）
+git remote add origin https://gitee.com/wsa191456prpo/pro.git
+
+## 2. 推送代码（首次需加 -u 参数）
+git push -u origin 分支名
+## 例如推送主分支：
+git push -u origin master
+-u 参数：将本地分支与远程分支关联，后续推送可直接用 git push
+## 常规推送（已关联分支）
+git push
+## 推送到指定远程分支
+git push origin 本地分支名:远程分支名
+## 例如：
+git push origin feature:feature
