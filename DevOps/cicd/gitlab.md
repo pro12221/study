@@ -36,3 +36,12 @@ sudo gitlab-ctl start //--启动所有gitlab组件
 git clone http://192.168.44.20/root/project.git
 输入账号密码....
 ```
+
+## gitlab账号的权限
+```
+Maintainer:推送保护分支、管理 CI/CD
+Developer:推送非保护分支、创建 MR
+Owner:删除项目、管理成员、修改设置
+Reporter:只读访问 + 创建 Issue
+Guest:仅查看项目
+```
