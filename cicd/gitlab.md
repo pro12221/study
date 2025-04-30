@@ -31,3 +31,8 @@ sudo gitlab-ctl start //--启动所有gitlab组件
 
 登录密码：初始密码在这个文件中/etc/gitlab/initial_root_password (可更改)
 
+## 克隆项目
+```
+git clone http://192.168.44.20/root/project.git
+输入账号密码....
+```
