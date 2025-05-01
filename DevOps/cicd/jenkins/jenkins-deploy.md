@@ -24,5 +24,14 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 ### 安装遇到的问题
 ```
 安装遇到的问题
-一直卡在setup wizard：https://www.zhangbj.com/p/1107.html
+一直卡在setup wizard，查看下面的链接替换插件源：/var/lib/jenkins/hudson.model.UpdateCenter.xml
+https://www.jenkins-zh.cn/tutorial/management/plugin/update-center/
+关掉梯子
 ```
+# freestyle流水线实战
+## 1.安装[Deploy to container Plugin插件
+![[Pasted image 20250501203159.png]]
+## 2.设置任务
+![[Pasted image 20250501204852.png]]
+![[Pasted image 20250501204917.png]]
+![[Pasted image 20250501204929.png]]
