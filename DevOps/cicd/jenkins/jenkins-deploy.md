@@ -28,10 +28,3 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 https://www.jenkins-zh.cn/tutorial/management/plugin/update-center/
 关掉梯子
 ```
-# freestyle流水线实战
-## 1.安装[Deploy to container Plugin插件
-![[Pasted image 20250501203159.png]]
-## 2.设置任务
-![[Pasted image 20250501204852.png]]
-![[Pasted image 20250501204917.png]]
-![[Pasted image 20250501204929.png]]
