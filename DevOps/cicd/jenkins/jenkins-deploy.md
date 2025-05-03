@@ -28,3 +28,5 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 https://www.jenkins-zh.cn/tutorial/management/plugin/update-center/
 关掉梯子
 ```
+## 破解管理员密码
+https://www.cnblogs.com/douyi/p/11584501.html
