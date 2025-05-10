@@ -70,7 +70,8 @@ spec:
 ```
 ## 使用静态令牌的方法
 ```shell
-kubectl --server=https://192.168.44.31:6443 --insecure-skip-tls-verify=true --token=abcdef123456 get pods Error from server (Forbidden): pods is forbidden: User "dev-user" cannot list resource "pods" in API group "" in the namespace "default" (没有权限)
+kubectl get pods --server=https://192.168.44.31:6443 --insecure-skip-tls-verify=true --token=abcdef123456 
+Error from server (Forbidden): pods is forbidden: User "dev-user" cannot list resource "pods" in API group "" in the namespace "default" (没有权限)
 ```
 # ​**​X.509 客户端证书**
 ## **生成客户端证书​、**
@@ -171,4 +172,28 @@ RoleBinding  ClusterRole
 角色：承载资源操作权限的容器
 资源：在rbac中称为Object，例如pod，service等
 动作：subject可以于object上执行的特定操作
+```
+ ## ClusterRoleBinding格式
+```shell
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:kube-scheduler
+  resourceVersion: "146"
+  uid: 6de9bad2-a28f-4907-adab-754532392093
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:kube-scheduler
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: system:kube-scheduler
+```
+## 命令行创建RBAC
+```
+kubectl create role pod-reader --verb=get,list,watch --resource=pods --namespace=default
+kubectl create rolebinding read-pods --role=pod-reader --user=dev-user --namespace=default  (这里的用户参照上面静态令牌创建的user)
 ```
