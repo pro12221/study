@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CloudNative/prometheus/prometheus架构.md",
+                "file": "load balance/nginx/nginx配置动静分离.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "prometheus架构"
+              "title": "nginx配置动静分离"
             }
           }
         ]
@@ -141,13 +141,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CloudNative/prometheus/prometheus架构.md",
+                "file": "load balance/nginx/nginx配置动静分离.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "prometheus架构 的大纲"
+              "title": "nginx配置动静分离 的大纲"
             }
           }
         ],
@@ -169,8 +169,13 @@
   },
   "active": "93d52f55dee64e88",
   "lastOpenFiles": [
-    "CloudNative/kubernets/lables基本操作.md",
+    "load balance/nginx/SSL卸载和透传.md",
+    "load balance/nginx/nginx配置动静分离.md",
     "CloudNative/prometheus/prometheus架构.md",
+    "图片/Pasted image 20250515134801.png",
+    "DevOps/cicd/版本控制/gitlab.md",
+    "DevOps/cicd/版本控制/git学习.md",
+    "CloudNative/kubernets/lables基本操作.md",
     "CloudNative/kubernets/configmap和secret.md",
     "DevOps/Ansible",
     "kubernets/Helm.md",
