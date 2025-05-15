@@ -1,1 +1,6 @@
-{}
+{
+  "attachmentFolderPath": "图片",
+  "newFileLocation": "current",
+  "showUnsupportedFiles": true,
+  "spellcheck": false
+}

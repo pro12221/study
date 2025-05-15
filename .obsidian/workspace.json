@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CloudNative/prometheus/未命名.md",
+                "file": "CloudNative/prometheus/prometheus架构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "未命名"
+              "title": "prometheus架构"
             }
           }
         ]
@@ -141,13 +141,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CloudNative/prometheus/未命名.md",
+                "file": "CloudNative/prometheus/prometheus架构.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "未命名 的大纲"
+              "title": "prometheus架构 的大纲"
             }
           }
         ],
@@ -167,8 +167,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "71208b6a3d2ee978",
+  "active": "93d52f55dee64e88",
   "lastOpenFiles": [
+    "CloudNative/kubernets/lables基本操作.md",
+    "CloudNative/prometheus/prometheus架构.md",
+    "CloudNative/kubernets/configmap和secret.md",
     "DevOps/Ansible",
     "kubernets/Helm.md",
     "kubernets/kubernetes的访问控制体系.md"
