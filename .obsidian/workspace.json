@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "c93d2df0918433f0",
+        "id": "f5f6fc00ef812099",
         "type": "tabs",
         "children": [
           {
-            "id": "93d52f55dee64e88",
+            "id": "b956a4bf33d15b8b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CloudNative/kubernets/Ingress.md",
+                "file": "DevOps/cicd/github actions.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ingress"
+              "title": "github actions"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 245.5
   },
   "right": {
     "id": "6d9a585ba489bdd6",
@@ -141,13 +141,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CloudNative/kubernets/Ingress.md",
+                "file": "DevOps/cicd/github actions.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Ingress 的大纲"
+              "title": "github actions 的大纲"
             }
           }
         ],
@@ -167,12 +167,22 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "93d52f55dee64e88",
+  "active": "71208b6a3d2ee978",
   "lastOpenFiles": [
+    "CloudNative/kubernets/lables基本操作.md",
+    "CloudNative/kubernets/AWS-EKS.md",
     "DevOps/cicd/github actions.md",
-    "CloudNative/kubernets/Ingress.md",
-    "CloudNative/kubernets/OIDC 与 OAuth2.0.md",
-    "CloudNative/kubernets/kubernetes的访问控制体系.md",
+    "CloudNative/kubernets/service/Ingress.md",
+    "CloudNative/kubernets/权限管理/kubernetes的访问控制体系.md",
+    "CloudNative/kubernets/权限管理/OIDC 与 OAuth2.0.md",
+    "README.zh.md",
+    "CloudNative/kubernets/service",
+    "CloudNative/kubernets/未命名.md",
+    "CloudNative/kubernets/Helm.md",
+    "CloudNative/kubernets/configmap和secret.md",
+    "CloudNative/kubernets/权限管理",
+    "CloudNative/kubernets/原理/创建deploy流程.md",
+    "tool/Google配置smtp服务器.md",
     "CloudNative/prometheus/prometheus架构.md",
     "数据库/mysql/mgr高可用集群.md",
     "load balance/nginx/nginx配置动静分离.md",
@@ -180,8 +190,6 @@
     "图片/Pasted image 20250515134801.png",
     "DevOps/cicd/版本控制/gitlab.md",
     "DevOps/cicd/版本控制/git学习.md",
-    "CloudNative/kubernets/lables基本操作.md",
-    "CloudNative/kubernets/configmap和secret.md",
     "DevOps/Ansible",
     "kubernets/Helm.md",
     "kubernets/kubernetes的访问控制体系.md"
