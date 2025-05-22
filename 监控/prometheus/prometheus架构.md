@@ -83,3 +83,24 @@ __scrape_timeout__：scrape超时时间（秒）
 - **labeldrop： **匹配regex所有标签名称，**对匹配到的实例标签进行删除**
 - **labelkeep： 匹配regex所有标签名称，对匹配到的实例标签进行保留**
 ```
+# Exporte
+## Node Exporte
+使用本机网络
+```docker
+docker run -d \
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter:latest \
+  --path.rootfs=/host
+```
+使用其他端口
+```
+docker run -d \
+  --name node-exporter-8081 \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  -p 0.0.0.0:8081:9100 \
+  quay.io/prometheus/node-exporter:latest \
+  --path.rootfs=/host
+```

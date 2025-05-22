@@ -22,19 +22,6 @@ kubectl rollout undo deployment/my-app-deployment --to-revision=2
 
 ## github action 模板
 ```yml
-前端页面开发： 准备一个简单的 HTML/CSS/JS 页面。
-GitHub 仓库设置： 创建仓库并上传代码。
-Docker 化应用程序： 编写 Dockerfile。
-AWS ECR 仓库设置： 创建 ECR 仓库来存储 Docker 镜像。
-AWS EKS 集群准备： 确保 EKS 集群已运行，并安装 Ingress-Nginx Controller。
-Kubernetes Manifests 准备： 编写 Deployment, Service 和 Ingress 定义。
-AWS IAM 配置： 为 GitHub Actions 配置 IAM 角色 (通过 OIDC)。
-GitHub Actions 工作流设计： 编写 CI/CD YAML，实现构建、推送镜像到 ECR，并部署到 EKS。
-
-
-
-
-
 name: Deploy Frontend to EKS # 工作流名称
 
 on: # 触发工作流的事件
@@ -46,8 +33,8 @@ on: # 触发工作流的事件
 
 
 env: # 定义环境变量
-  AWS_REGION: ap-southeast-1                   # 替换为您的 AWS 区域
-  EKS_CLUSTER_NAME: eks-test    # 替换为您的 EKS 集群名称
+  AWS_REGION: ap-southeast-1                # 替换为您的 AWS 区域
+  EKS_CLUSTER_NAME: eks-test     # 替换为您的 EKS 集群名称
   ECR_REPOSITORY: test/testrepo         # 替换为您的 ECR 仓库名称
   # Kubernetes Deployment 和 Service 的 YAML 文件路径
   K8S_MANIFESTS_DIR: my-frontend-app/k8s
@@ -99,33 +86,27 @@ jobs: # 定义工作流中的 Job
         uses: aws-actions/amazon-ecr-login@v2  #自动登录到Amazon ECR
 
 
-      - name: Build and push Docker image to ECR # 构建 Docker 镜像并推送到 ECR
-        id: build-image # 为此步骤设置 ID
+      - name: Build and push Docker image to ECR
+        id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }} # 从登录步骤获取 ECR 注册表 URI
-          IMAGE_TAG: ${{ github.sha }} # 使用 commit SHA 作为镜像标签，确保唯一性
+          ECR_REGISTRY: 588738573686.dkr.ecr.ap-southeast-1.amazonaws.com  # 硬编码你的 ECR 注册表地址
+          ECR_REPOSITORY: test/testrepo  # 硬编码你的 ECR 仓库路径
+          IMAGE_TAG: latest  # 自定义镜像标签
         run: |
-          # 构建 Docker 镜像
+          # 构建 Docker 镜像（完整路径）
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f my-frontend-app/Dockerfile my-frontend-app/
-          # 为方便起见，也打一个 latest 标签 (如果 ECR 仓库设置为 mutable 且您需要 latest)
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-          # 推送 Docker 镜像
+          # 推送镜像（带自定义标签和 latest）
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest # 如果需要
+      
+          # 输出镜像 URI 供后续步骤使用
+          echo "FULL_IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_ENV
 
-          # 将完整的镜像 URI 输出，供后续步骤使用
-          echo "FULL_IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
-
-      - name: Set up Kubeconfig for EKS # 配置 kubectl 访问 EKS 集群
-        uses: aws-actions/configure-aws-credentials@v4 # 再次使用此 Action，用于配置 Kubeconfig
-        with:
-          aws-region: ${{ env.AWS_REGION }}
-          # 使用 GitHub Secrets 获取 Access Key ID
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          # 使用 GitHub Secrets 获取 Secret Access Key
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          cluster-name: ${{ env.EKS_CLUSTER_NAME }} # 自动为集群生成 Kubeconfig
+      - name: Set up Kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig \
+            --region ${{ env.AWS_REGION }} \
+            --name ${{ env.EKS_CLUSTER_NAME }}
 
       - name: Install kubectl # 安装 kubectl 命令行工具
         uses: azure/setup-kubectl@v3  #在工作流运行器上安装 kubectl
@@ -156,6 +137,11 @@ jobs: # 定义工作流中的 Job
           # 应用所有 k8s 目录下的 YAML 文件
           kubectl apply -f ${{ env.K8S_MANIFESTS_DIR }}
           echo "Kubernetes manifests applied to EKS."
+
+
+
+
+
 -----------------------------------------------------------------------
       - name: Get Ingress URL # 获取 Ingress 服务的外部 URL
         run: |
@@ -190,3 +176,47 @@ jobs: # 定义工作流中的 Job
           kubectl rollout status deployment/frontend-app-deployment -n default
           echo "Frontend application deployment successful!"
 ```
+# Ingress 模板
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-app-ingress
+  namespace: default
+  annotations:
+    #kubernetes.io/ingress.class: "alb" # 明确指定使用 AWS Load Balancer Controller 创建 ALB
+    #alb.ingress.kubernetes.io/scheme: internet-facing # internet-facing 或 internal
+    # 如果您有多个 Ingress Controller，可能需要指定 Ingress Class
+    # kubernetes.io/ingress.class: "nginx"
+spec:
+  ingressClassName: nginx # 指定使用 Nginx Ingress Controller
+  rules:
+   -
+      http:
+        paths:
+          - path: / # 路由所有根路径流量
+            pathType: Prefix # 路径匹配类型
+            backend:
+              service:
+                name: frontend-app-service # 指向您的 Service
+                port:
+                  number: 80 # Service 的端口
+```
+在 AWS EKS (Elastic Kubernetes Service) 上使用 Ingress 时，Ingress Controller 会根据 Ingress 资源的定义自动为您创建和配置 AWS 负载均衡器 (Load Balancer)。您可以通过在 Ingress 资源或 Service 资源的 **annotations (注解)** 中指定特定的参数来选择和配置 AWS LB 的类型。
+## ALB类型
+```
+annotations:
+    kubernetes.io/ingress.class: "alb" # 明确指定使用 AWS Load Balancer Controller 创建 ALB
+    alb.ingress.kubernetes.io/scheme: internet-facing # internet-facing 或 internal
+    # ... 其他 ALB 相关注解，例如：
+    # alb.ingress.kubernetes.io/target-type: ip # 或 instance
+    # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:region:account-id:certificate/certificate-id
+    # alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
+    # alb.ingress.kubernetes.io/healthcheck-path: /healthz
+```
+- `ip`: 将流量直接路由到 Pod 的 IP 地址。这是推荐的方式，通常与 VPC CNI 配合使用效果更好，性能也更高。
+- `instance`: 将流量路由到 NodePort，然后再由 kube-proxy 路由到 Pod。
+## NLB类型
+`AWS Load Balancer Controller`
+

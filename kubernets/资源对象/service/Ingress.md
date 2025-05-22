@@ -136,3 +136,20 @@ controller:
 #   replicaCount: 1
 #   image: ...
 ```
+
+# 原理
+- **入口点：** 外部流量首先到达暴露 `ingress-nginx-controller` Pods 的 Service (通常是 `LoadBalancer` 或 `NodePort` 类型)。这个 Service 将流量负载均衡到多个 `ingress-nginx-controller` Pod 实例上（如果 Controller 本身是多副本部署的话）。
+- **第一层负载均衡 (可选，针对 Controller Pods)：** 如果 `ingress-nginx-controller` 通过 `LoadBalancer` Service 暴露，那么云提供商的负载均衡器会对 `ingress-nginx-controller` Pods 进行第一层负载均衡。
+- **第二层负载均衡 (Nginx 内部)：** 每个 `ingress-nginx-controller` Pod 内部的 Nginx 实例，根据从 `Endpoints` 获取的后端 Pod IP 列表，对实际的应用 Pod 进行第二层负载均衡。
+- **动态性：** 整个过程是动态的。当应用 Pod 扩缩容、上线或下线时，`Endpoints` 对象会更新，`ingress-nginx` Controller 会检测到这些变化，更新 Nginx 配置中的 `upstream` 列表，并热加载 Nginx。
+# AWS上ingress-nginx对接NLB
+默认ingress对接的是classes类型的负载均衡器
+```
+修改Helm的value.yaml文件
+添加注解
+service.annotations下
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-xxxxxxxxxxxxxxxxx,subnet-yyyyyyyyyyyyyyyyy,subnet-zzzzzzzzzzzzzzzzz" #指定子网
+```
+然后更新helm的value文件
