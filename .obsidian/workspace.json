@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "985432c9e7774d52",
+        "id": "348da4640cb24e56",
         "type": "tabs",
         "children": [
           {
-            "id": "ce0f37ff98ad3867",
+            "id": "6965ae5c80062ab2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "监控/prometheus/prometheus架构.md",
+                "file": "Observability/prometheus/PromQL.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "prometheus架构"
+              "title": "PromQL"
             }
           }
         ]
@@ -141,13 +141,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "监控/prometheus/prometheus架构.md",
+                "file": "Observability/prometheus/PromQL.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "prometheus架构 的大纲"
+              "title": "PromQL 的大纲"
             }
           }
         ],
@@ -167,20 +167,24 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ce0f37ff98ad3867",
+  "active": "71208b6a3d2ee978",
   "lastOpenFiles": [
+    "tool/系统问题/解决 SSH 主机密钥变更警告​.md",
+    "Observability/prometheus/PromQL.md",
+    "Observability/prometheus/prometheus架构.md",
+    "图片/Pasted image 20250525221637.png",
     "kubernets/资源对象/service/Ingress.md",
+    "kubernets/基本操作/lables基本操作.md",
+    "kubernets/基本操作/kubernets对接ceph.md",
+    "kubernets/权限管理/configmap和secret.md",
+    "kubernets/权限管理/OIDC 与 OAuth2.0.md",
+    "kubernets/包管理/Helm.md",
     "CloudNative/kubernets/包管理/Helm.md",
     "kubernets/资源对象/deploy",
     "kubernets/资源对象/service",
     "kubernets/资源对象/openkurise.md",
-    "kubernets/权限管理/OIDC 与 OAuth2.0.md",
-    "kubernets/权限管理/configmap和secret.md",
     "kubernets/权限管理/kubernetes的访问控制体系.md",
-    "kubernets/基本操作/lables基本操作.md",
-    "kubernets/基本操作/kubernets对接ceph.md",
     "kubernets/资源对象/deploy/创建deploy流程.md",
-    "kubernets/包管理/Helm.md",
     "kubernets/云厂商K8S/AWS-EKS.md",
     "kubernets/资源对象",
     "kubernets/权限管理",
@@ -191,7 +195,6 @@
     "kubernets",
     "CloudNative",
     "DevOps/cicd/github actions.md",
-    "监控/prometheus/prometheus架构.md",
     "web应用/HTTP.md",
     "图片/Pasted image 20250501202818.png",
     "图片/Pasted image 20250505103257.png",
